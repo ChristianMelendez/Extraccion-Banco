@@ -15,6 +15,7 @@ public class Extraccion extends javax.swing.JFrame {
     long totalcaja=0;
     long debito=0;
     long cuenta=0;
+    long auxcuenta=0;
     int contadormonto=0;
     
     
@@ -168,14 +169,16 @@ public class Extraccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Ingrese algun monto a ingresar");
         }
         else{
-        monto=Long.parseLong(this.TxtMonto.getText());
-        cuenta+=monto;
-        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
-        TxtMonto.setText("");
-        contadormonto++;
+            monto=Long.parseLong(this.TxtMonto.getText());
+            cuenta+=monto;
+            auxcuenta=cuenta;
+            LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+            TxtMonto.setText("");
+            monto=0;
+            contadormonto++;
             if (contadormonto==10){
-             JOptionPane.showMessageDialog(null,"Usted superó el limite de ingresos disponibles");
-             BtnAgregar.setEnabled(false);
+                 JOptionPane.showMessageDialog(null,"Usted superó el limite de ingresos disponibles");
+                 BtnAgregar.setEnabled(false);
             }
         }
     }//GEN-LAST:event_BtnAgregarActionPerformed
@@ -184,16 +187,26 @@ public class Extraccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(TxtDebito.getText().equals("")){
             JOptionPane.showMessageDialog(null,"Ingrese algun monto a debitar");
-        }else{
-        if (cuenta>=0){
-        debito=Long.parseLong(this.TxtDebito.getText());
-        cuenta-=debito;
-        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
-        TxtDebito.setText("");
-        }else{
-            JOptionPane.showMessageDialog(null,"No puede debitar mas dinero");
-            
         }
+        else{
+            if(cuenta==0){
+                JOptionPane.showMessageDialog(null,"No puede debitar mas dinero");
+            }
+            else{
+                debito=Long.parseLong(this.TxtDebito.getText());
+                auxcuenta-=debito;
+                if (auxcuenta<0){
+                    JOptionPane.showMessageDialog(null,"No puede debitar esa cantidad");
+                }
+                else{    
+                     cuenta-=debito;
+                     auxcuenta=cuenta;
+                     debito=0;
+                     LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+                     TxtDebito.setText("");
+  
+                }
+            }
         }
     }//GEN-LAST:event_BtnDebitarActionPerformed
 
