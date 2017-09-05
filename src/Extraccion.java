@@ -10,11 +10,19 @@
  */
 public class Extraccion extends javax.swing.JFrame {
 
+    long monto=0;
+    long totalcaja=0;
+    long debito=0;
+    long cuenta=0;
+    
+    
     /**
      * Creates new form Extraccion
      */
     public Extraccion() {
         initComponents();
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,72 +35,139 @@ public class Extraccion extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         LabelMonto = new javax.swing.JLabel();
         LabelDebito = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        BtnAgregar = new javax.swing.JButton();
+        TxtMonto = new javax.swing.JTextField();
+        TxtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        LabelNombre = new javax.swing.JLabel();
+        TxtDebito = new javax.swing.JTextField();
+        LabelEstadoTitulo = new javax.swing.JLabel();
+        LabelEstadoCuenta = new javax.swing.JLabel();
+        BtnDebitar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        LabelBienvenida = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cajero automatico");
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(74, 128, 252)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(209, 173, 69)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre : ");
-        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(3, 3, 3), 2, true));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 100, 20));
-
-        LabelMonto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        LabelMonto.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         LabelMonto.setForeground(new java.awt.Color(255, 255, 255));
         LabelMonto.setText("Monto : ");
-        LabelMonto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(3, 3, 3), 2, true));
-        jPanel1.add(LabelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 90, 20));
+        jPanel1.add(LabelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 100, 30));
 
-        LabelDebito.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LabelDebito.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         LabelDebito.setForeground(new java.awt.Color(255, 255, 255));
         LabelDebito.setText("Debito : ");
-        jPanel1.add(LabelDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 90, 40));
+        jPanel1.add(LabelDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 70, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoBanco.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 270, 220));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 270, 220));
 
-        jButton1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
-        jButton1.setText("Agregar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, -1));
+        BtnAgregar.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        BtnAgregar.setText("Agregar");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 150, 30));
+        TxtMonto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(TxtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 150, 30));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 73, 150, 30));
+        TxtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 150, 30));
 
-        jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 3, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 3, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Legacy Bank");
         jLabel3.setToolTipText("");
         jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 210, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 310, 50));
+
+        LabelNombre.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        LabelNombre.setForeground(new java.awt.Color(255, 255, 255));
+        LabelNombre.setText("Nombre : ");
+        jPanel1.add(LabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 90, 30));
+        jPanel1.add(TxtDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 160, 30));
+
+        LabelEstadoTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        LabelEstadoTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        LabelEstadoTitulo.setText("Estado de la cuenta:");
+        jPanel1.add(LabelEstadoTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 190, 30));
+
+        LabelEstadoCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        LabelEstadoCuenta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LabelEstadoCuenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(LabelEstadoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 190, 30));
+
+        BtnDebitar.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        BtnDebitar.setText("Debitar");
+        BtnDebitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDebitarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnDebitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, 110, -1));
+
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 290, -1));
+
+        LabelBienvenida.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        LabelBienvenida.setForeground(new java.awt.Color(255, 255, 255));
+        LabelBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelBienvenida.setText("Bienvenido");
+        jPanel1.add(LabelBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 170, 30));
+
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        // TODO add your handling code here:
+        monto=Long.parseLong(this.TxtMonto.getText());
+        cuenta+=monto;
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    private void BtnDebitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDebitarActionPerformed
+        // TODO add your handling code here:
+        debito=Long.parseLong(this.TxtDebito.getText());
+        cuenta-=debito;
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+    }//GEN-LAST:event_BtnDebitarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,18 +201,26 @@ public class Extraccion extends javax.swing.JFrame {
             public void run() {
                 new Extraccion().setVisible(true);
             }
+            
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnDebitar;
+    private javax.swing.JLabel LabelBienvenida;
     private javax.swing.JLabel LabelDebito;
+    private javax.swing.JLabel LabelEstadoCuenta;
+    private javax.swing.JLabel LabelEstadoTitulo;
     private javax.swing.JLabel LabelMonto;
+    private javax.swing.JLabel LabelNombre;
+    private javax.swing.JTextField TxtDebito;
+    private javax.swing.JTextField TxtMonto;
+    private javax.swing.JTextField TxtNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
