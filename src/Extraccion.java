@@ -14,11 +14,13 @@ public class Extraccion extends javax.swing.JFrame {
     long monto=0;
     long totalcaja=0;
     long debito=0;
-    long cuenta=0;
+    long [] cuenta=new long[10];//Se pueden crear un máximo de 10 cuentas
     long auxcuenta=0;
     int contadormonto=0;
-    String bienvenida="Bienvenido, ";
-    String nombre;
+    String bienvenida="Bienvenido, ";//Falta agregar un condicional con la pregunta del genero para que la bienvenida sea acorde.
+    String [] nombre=new String [10];
+    int i=0;
+    int k=0;
     
     
     /**
@@ -26,11 +28,13 @@ public class Extraccion extends javax.swing.JFrame {
      */
     public Extraccion() {
         initComponents();
-        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+        //cuenta[0]=0;
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta[i]));
         LabelEstadoCuenta.setVisible(false);
         this.setLocationRelativeTo(null);
-        nombre=JOptionPane.showInputDialog("Ingrese su nombre");
-        LabelBienvenida.setText(bienvenida+nombre);
+        nombre[i]=JOptionPane.showInputDialog("Ingrese su nombre");
+        LabelBienvenida.setText(bienvenida+nombre[i]);
+        BtnCambiarUsuario.setEnabled(false);
     }
 
     /**
@@ -48,9 +52,7 @@ public class Extraccion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         BtnAgregar = new javax.swing.JButton();
         TxtMonto = new javax.swing.JTextField();
-        TxtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        LabelNombre = new javax.swing.JLabel();
         TxtDebito = new javax.swing.JTextField();
         LabelEstadoTitulo = new javax.swing.JLabel();
         LabelEstadoCuenta = new javax.swing.JLabel();
@@ -59,7 +61,8 @@ public class Extraccion extends javax.swing.JFrame {
         LabelBienvenida = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         BtnVerEstado = new javax.swing.JButton();
-        BtnCambiar = new javax.swing.JButton();
+        BtnCambiarUsuario = new javax.swing.JButton();
+        BtnNuevoUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cajero automatico");
@@ -72,12 +75,12 @@ public class Extraccion extends javax.swing.JFrame {
         LabelMonto.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         LabelMonto.setForeground(new java.awt.Color(255, 255, 255));
         LabelMonto.setText("Monto : ");
-        jPanel1.add(LabelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 100, 30));
+        jPanel1.add(LabelMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 100, 30));
 
         LabelDebito.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         LabelDebito.setForeground(new java.awt.Color(255, 255, 255));
         LabelDebito.setText("Debito : ");
-        jPanel1.add(LabelDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 70, 40));
+        jPanel1.add(LabelDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 70, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoBanco.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 270, 220));
@@ -89,13 +92,10 @@ public class Extraccion extends javax.swing.JFrame {
                 BtnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
+        jPanel1.add(BtnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, -1));
 
         TxtMonto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(TxtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 150, 30));
-
-        TxtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel1.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 150, 30));
+        jPanel1.add(TxtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 150, 30));
 
         jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 3, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,12 +103,7 @@ public class Extraccion extends javax.swing.JFrame {
         jLabel3.setToolTipText("");
         jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 310, 50));
-
-        LabelNombre.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        LabelNombre.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNombre.setText("Nombre : ");
-        jPanel1.add(LabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 90, 30));
-        jPanel1.add(TxtDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 160, 30));
+        jPanel1.add(TxtDebito, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 160, 30));
 
         LabelEstadoTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         LabelEstadoTitulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,10 +122,10 @@ public class Extraccion extends javax.swing.JFrame {
                 BtnDebitarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnDebitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, 110, -1));
+        jPanel1.add(BtnDebitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 110, -1));
 
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 290, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 290, -1));
 
         LabelBienvenida.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
         LabelBienvenida.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,7 +138,7 @@ public class Extraccion extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, -1, -1));
 
         BtnVerEstado.setText("Ver");
         BtnVerEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -153,13 +148,21 @@ public class Extraccion extends javax.swing.JFrame {
         });
         jPanel1.add(BtnVerEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
 
-        BtnCambiar.setText("↕");
-        BtnCambiar.addActionListener(new java.awt.event.ActionListener() {
+        BtnCambiarUsuario.setText("Cambiar usuario");
+        BtnCambiarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCambiarActionPerformed(evt);
+                BtnCambiarUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, -1, 30));
+        jPanel1.add(BtnCambiarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, -1, -1));
+
+        BtnNuevoUsuario.setText("Nuevo usuario");
+        BtnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNuevoUsuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,9 +185,9 @@ public class Extraccion extends javax.swing.JFrame {
         }
         else{
             monto=Long.parseLong(this.TxtMonto.getText());
-            cuenta+=monto;
-            auxcuenta=cuenta;
-            LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+            cuenta[i]+=monto;
+            auxcuenta=cuenta[i];
+            LabelEstadoCuenta.setText(String.valueOf("$"+cuenta[i]));
             TxtMonto.setText("");
             monto=0;
             contadormonto++;
@@ -201,7 +204,7 @@ public class Extraccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Ingrese algun monto a debitar");
         }
         else{
-            if(cuenta==0){
+            if(cuenta[i]==0){
                 JOptionPane.showMessageDialog(null,"No puede debitar mas dinero");
             }
             else{
@@ -211,10 +214,10 @@ public class Extraccion extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"No puede debitar esa cantidad");
                 }
                 else{    
-                     cuenta-=debito;
-                     auxcuenta=cuenta;
+                     cuenta[i]-=debito;
+                     auxcuenta=cuenta[i];
                      debito=0;
-                     LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+                     LabelEstadoCuenta.setText(String.valueOf("$"+cuenta[i]));
                      TxtDebito.setText("");
   
                 }
@@ -237,11 +240,26 @@ public class Extraccion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnVerEstadoActionPerformed
 
-    private void BtnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCambiarActionPerformed
+    private void BtnCambiarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCambiarUsuarioActionPerformed
         // TODO add your handling code here:
-        nombre=TxtNombre.getText();
-        LabelBienvenida.setText(bienvenida+nombre);
-    }//GEN-LAST:event_BtnCambiarActionPerformed
+        i=Integer.parseInt(JOptionPane.showInputDialog("Ingrese su numero de usuario"+" (Inicial= 0 y max:"+k));
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta[i]));
+        LabelEstadoCuenta.setVisible(false);
+        LabelBienvenida.setText(bienvenida+nombre[i]);
+        
+    }//GEN-LAST:event_BtnCambiarUsuarioActionPerformed
+
+    private void BtnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoUsuarioActionPerformed
+        // TODO add your handling code here:
+        i++;
+        k++;
+        nombre[i]=JOptionPane.showInputDialog("Ingrese su nombre");
+        LabelBienvenida.setText(bienvenida+nombre[i]);
+        cuenta[i]=0;
+        LabelEstadoCuenta.setText(String.valueOf("$"+cuenta[i]));
+        LabelEstadoCuenta.setVisible(false);
+        BtnCambiarUsuario.setEnabled(true);
+    }//GEN-LAST:event_BtnNuevoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,18 +299,17 @@ public class Extraccion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregar;
-    private javax.swing.JButton BtnCambiar;
+    private javax.swing.JButton BtnCambiarUsuario;
     private javax.swing.JButton BtnDebitar;
+    private javax.swing.JButton BtnNuevoUsuario;
     private javax.swing.JButton BtnVerEstado;
     private javax.swing.JLabel LabelBienvenida;
     private javax.swing.JLabel LabelDebito;
     private javax.swing.JLabel LabelEstadoCuenta;
     private javax.swing.JLabel LabelEstadoTitulo;
     private javax.swing.JLabel LabelMonto;
-    private javax.swing.JLabel LabelNombre;
     private javax.swing.JTextField TxtDebito;
     private javax.swing.JTextField TxtMonto;
-    private javax.swing.JTextField TxtNombre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
