@@ -8,12 +8,14 @@
  *
  * @author Español
  */
+import javax.swing.JOptionPane;
 public class Extraccion extends javax.swing.JFrame {
 
     long monto=0;
     long totalcaja=0;
     long debito=0;
     long cuenta=0;
+    int contadormonto=0;
     
     
     /**
@@ -22,6 +24,7 @@ public class Extraccion extends javax.swing.JFrame {
     public Extraccion() {
         initComponents();
         LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+        LabelEstadoCuenta.setVisible(false);
         this.setLocationRelativeTo(null);
     }
 
@@ -50,6 +53,7 @@ public class Extraccion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         LabelBienvenida = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        BtnVerEstado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cajero automatico");
@@ -108,7 +112,7 @@ public class Extraccion extends javax.swing.JFrame {
         LabelEstadoCuenta.setBackground(new java.awt.Color(255, 255, 255));
         LabelEstadoCuenta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LabelEstadoCuenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(LabelEstadoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 190, 30));
+        jPanel1.add(LabelEstadoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 150, 30));
 
         BtnDebitar.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
         BtnDebitar.setText("Debitar");
@@ -136,6 +140,14 @@ public class Extraccion extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, -1, -1));
 
+        BtnVerEstado.setText("Ver");
+        BtnVerEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVerEstadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnVerEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,22 +164,53 @@ public class Extraccion extends javax.swing.JFrame {
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
         // TODO add your handling code here:
+        if(TxtMonto.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Ingrese algun monto a ingresar");
+        }
+        else{
         monto=Long.parseLong(this.TxtMonto.getText());
         cuenta+=monto;
         LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+        TxtMonto.setText("");
+        contadormonto++;
+            if (contadormonto==10){
+             JOptionPane.showMessageDialog(null,"Usted superó el limite de ingresos disponibles");
+             BtnAgregar.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnDebitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDebitarActionPerformed
         // TODO add your handling code here:
+        if(TxtDebito.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Ingrese algun monto a debitar");
+        }else{
+        if (cuenta>=0){
         debito=Long.parseLong(this.TxtDebito.getText());
         cuenta-=debito;
         LabelEstadoCuenta.setText(String.valueOf("$"+cuenta));
+        TxtDebito.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null,"No puede debitar mas dinero");
+            
+        }
+        }
     }//GEN-LAST:event_BtnDebitarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BtnVerEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerEstadoActionPerformed
+        // TODO add your handling code here:
+        if (LabelEstadoCuenta.isVisible()){
+        LabelEstadoCuenta.setVisible(false);
+        }
+        else{
+            LabelEstadoCuenta.setVisible(true);
+        }
+    }//GEN-LAST:event_BtnVerEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +251,7 @@ public class Extraccion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnDebitar;
+    private javax.swing.JButton BtnVerEstado;
     private javax.swing.JLabel LabelBienvenida;
     private javax.swing.JLabel LabelDebito;
     private javax.swing.JLabel LabelEstadoCuenta;
